@@ -20,6 +20,8 @@ namespace ConsoleAppDatabase
             Console.WriteLine("===================================");
             Console.WriteLine("Opgave 3: Slet en exam");
             Console.WriteLine("===================================");
+            ExamFacade.DeleteOneExam(5);
+            Console.WriteLine("Exam er nu slettet!");
 
         }
     }

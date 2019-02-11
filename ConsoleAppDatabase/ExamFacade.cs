@@ -44,6 +44,41 @@ namespace ConsoleAppDatabase
                 return result;
             }
         }
+        public static Exam DeleteOneExam(int examid)
+        {
+            string sql = "DELETE FROM Exam WHERE Exam.ExamId = @examid";
 
+
+            var result = new Exam();
+            using (SqlConnection dbConn = new SqlConnection(conn))
+            {
+                dbConn.Open();
+                using (SqlCommand selectCommand = new SqlCommand(sql, dbConn))
+                {
+                    selectCommand.Parameters.AddWithValue("@examid", examid);
+                    using (SqlDataReader reader = selectCommand.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int examId = reader.GetInt32(0);
+                            string examname = reader.GetString(1);
+                            int karakter = reader.GetInt32(2);
+                            int studentid = reader.GetInt32(3);
+
+                            var Exam = new Exam()
+                            {
+                                ExamId = examId,
+                                ExamNavn = examname,
+                                Karakter = karakter,
+                                StudentId = studentid
+                            };
+                            return Exam;
+                        }
+                    }
+                }
+
+                return result;
+            }
+        }
     }
 }
